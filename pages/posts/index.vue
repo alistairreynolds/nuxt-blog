@@ -1,17 +1,20 @@
 <template>
-  <div class="root">
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam beatae ipsum laboriosam, recusandae repellat. Dolor doloremque, enim ipsum nam quisquam tenetur ullam! Beatae fugit placeat, provident quae quia quo.</p>
+  <div class="posts-page">
+    <PostsList />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Index'
+  name: 'PostsIndex',
+  data () {
+    return {}
+  }
 }
 </script>
 
 <style scoped lang="scss">
-  .root{
+  .posts-page{
     display: flex;
     justify-content: center;
     align-items: center;

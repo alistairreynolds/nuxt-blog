@@ -15,7 +15,7 @@
           @click="$emit('close')"
         >
           <li class="nav-item">
-            <nuxt-link to="/">
+            <nuxt-link to="/posts">
               Blog
             </nuxt-link>
           </li>
