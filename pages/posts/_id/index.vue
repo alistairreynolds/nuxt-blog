@@ -1,10 +1,16 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="post-title">Title</h1>
+      <h1 class="post-title">
+        Title
+      </h1>
       <div class="post-details">
-        <div class="post-details">Date:</div>
-        <div class="post-details">By:</div>
+        <div class="post-details">
+          Date:
+        </div>
+        <div class="post-details">
+          By:
+        </div>
       </div>
       <p>Contents</p>
     </section>
@@ -32,42 +38,42 @@ export default {
     width: 100%;
 
     @media (min-width: 768px) {
-        width: 600px;
-        margin: auto;
+      width: 600px;
+      margin: auto;
     }
 
-  }
+    .post-title {
+      margin: 0;
+    }
 
-  .post-title {
-    margin: 0;
-  }
+    .post-details {
+      padding: 10px;
+      box-sizing: border-box;
+      border-bottom: 3px solid #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
 
-  .post-details {
-    padding: 10px;
-    box-sizing: border-box;
-    border-bottom: 3px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    @media (min-width: 768px) {
+      @media (min-width: 768px) {
         flex-direction: row;
+      }
+
+      .post-details {
+        color: rgb(88, 88, 88);
+        margin: 0 10px;
+      }
     }
 
-    .post-details{
-      color: rgb(88, 88, 88);
-      margin: 0 10px;
-    }
-  }
+    .post-feedback a {
+      color: red;
+      text-decoration: none;
 
-  .post-feedback a {
-    color: red;
-    text-decoration: none;
+      &a:hover,
+      &a:active {
+        color: salmon;
+      }
 
-    &a:hover,
-    &a:active {
-      color: salmon;
     }
 
   }
