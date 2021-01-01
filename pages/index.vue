@@ -3,15 +3,30 @@
     <section class="intro">
       <h1>Alistair's blog</h1>
     </section>
-    <PostsList />
+    <PostsList :posts="posts" />
   </div>
 </template>
 
 <script>
 export default {
   name: 'MainIndex',
-  data () {
-    return {}
+  asyncData (context, callback) {
+    callback(null, {
+      posts: [
+        {
+          id: 1,
+          title: 'Some stuff',
+          previewText: 'Makin some stuff',
+          thumb: 'post1.jpg'
+        },
+        {
+          id: 2,
+          title: 'Some other stuff',
+          previewText: 'Makin more stuff',
+          thumb: 'post2.jpg'
+        }
+      ]
+    })
   }
 }
 </script>

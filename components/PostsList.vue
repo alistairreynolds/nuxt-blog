@@ -1,14 +1,14 @@
 <template>
   <section class="posts-list">
-    <div v-for="post in posts" :key="post.id">
-      <PostPreview
-        :id="post.id"
-        :thumb="post.thumb"
-        :title="post.title"
-        :text="post.text"
-        :is-admin="isAdmin"
-      />
-    </div>
+    <PostPreview
+      v-for="post in posts"
+      :id="post.id"
+      :key="post.id"
+      :thumb="post.thumb"
+      :title="post.title"
+      :preview-text="post.previewText"
+      :is-admin="isAdmin"
+    />
   </section>
 </template>
 
@@ -19,24 +19,10 @@ export default {
     isAdmin: {
       type: Boolean,
       default: false
-    }
-  },
-  data () {
-    return {
-      posts: [
-        {
-          id: 1,
-          title: 'Some stuff',
-          text: 'Makin some stuff',
-          thumb: 'post1.jpg'
-        },
-        {
-          id: 2,
-          title: 'Some other stuff',
-          text: 'Makin more stuff',
-          thumb: 'post2.jpg'
-        }
-      ]
+    },
+    posts: {
+      type: Array,
+      required: true
     }
   }
 }
