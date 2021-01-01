@@ -6,6 +6,7 @@
         :thumb="post.thumb"
         :title="post.title"
         :text="post.text"
+        :is-admin="isAdmin"
       />
     </div>
   </section>
@@ -14,6 +15,12 @@
 <script>
 export default {
   name: 'PostsList',
+  props: {
+    isAdmin: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       posts: [
