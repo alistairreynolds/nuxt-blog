@@ -1,12 +1,12 @@
 <template>
   <form @submit.prevent="onSave">
-    <AppControlInput v-model="editedPost.author">
+    <AppControlInput v-model="editedPost.author" placeholder="Alistair">
       Author Name
     </AppControlInput>
     <AppControlInput v-model="editedPost.title">
       Title
     </AppControlInput>
-    <AppControlInput v-model="editedPost.thumb">
+    <AppControlInput v-model="editedPost.thumb" placeholder="https://miro.medium.com/max/2400/0*ScZSC40m756hGB4z">
       Thumbnail Link
     </AppControlInput>
     <AppControlInput
@@ -15,6 +15,13 @@
     >
       Content
     </AppControlInput>
+    <AppControlInput
+      v-model="editedPost.previewText"
+      control-type="textarea"
+    >
+      Preview Content
+    </AppControlInput>
+
     <AppButton type="submit">
       Submit
     </AppButton>
@@ -44,6 +51,7 @@ export default {
         title: '',
         author: '',
         thumb: '',
+        previewText: '',
         content: ''
       }
     }
