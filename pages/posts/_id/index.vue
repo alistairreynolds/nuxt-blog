@@ -2,18 +2,18 @@
   <div class="single-post-page">
     <section class="post">
       <h1 class="post-title">
-        {{ post.title }}
+        {{ loadedPost.title }}
       </h1>
       <div class="post-details">
         <div class="post-detail">
-          {{ post.updatedDate }}
+          {{ loadedPost.updatedDate }}
         </div>
         <div class="post-detail">
-          Written By: {{ post.author }}
+          Written By: {{ loadedPost.author }}
         </div>
       </div>
       <p class="post-content">
-        {{ post.content }}
+        {{ loadedPost.content }}
       </p>
     </section>
 
@@ -25,22 +25,18 @@
 
 <script>
 
-import moment from 'moment'
+import axios from 'axios'
+import { FIREBASE_POST_URL } from '@/constants/urls'
 
 export default {
   name: 'Post',
-  asyncData (context, callback) {
-    callback(null, {
-      post: {
-        id: 1,
-        title: 'Some stuff',
-        previewText: 'Makin some stuff',
-        thumb: '/images/post1.jpg',
-        author: 'Me',
-        updatedDate: moment().format('dddd Do MMMM YYYY, h:mm a'),
-        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-      }
-    })
+  asyncData (context) {
+    return axios.get(FIREBASE_POST_URL.replace('%s', context.params.id))
+      .then((r) => {
+        return {
+          loadedPost: r.data
+        }
+      }).catch(e => context.error(e))
   }
 }
 </script>
