@@ -21,20 +21,25 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .button {
   font: inherit;
-  background-color: black;
-  color: white;
+  background-color: #aeaeae;
+  color: #000;
   padding: 5px;
   cursor: pointer;
   border: 1px solid black;
-}
+  border-radius: 7px;
+  box-shadow: 1px 1px 2px gray;
+  transition: all 200ms;
 
-.button:hover,
-.button:active {
-  background-color: rgb(51, 51, 51);
-  border: 1px solid black;
+  &:hover,
+  &:active {
+    background-color: rgb(126, 126, 126);
+    border: 1px solid black;
+    box-shadow: none;
+    color: white;
+  }
 }
 
 .inverted {

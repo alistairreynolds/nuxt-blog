@@ -16,16 +16,3 @@ h1{
 h2{
   font-size: 2rem;
 }
-
-button{
-  border: 1px solid #323232;
-  padding: 5px 10px;
-  border-radius: 7px;
-  box-shadow: 1px 1px 2px gray;
-  transition: all 200ms;
-
-  &:hover{
-    box-shadow: none;
-    background: #b3f1e5;
-  }
-}
