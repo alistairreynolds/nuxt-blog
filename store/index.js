@@ -1,4 +1,6 @@
 import Vuex from 'vuex'
+import axios from 'axios'
+import { FIREBASE_POSTS_URL } from '@/constants/urls'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -12,27 +14,16 @@ const createStore = () => {
     },
     actions: {
       nuxtServerInit (vuexContext, context) {
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            vuexContext.commit('setPosts',
-              [
-                {
-                  id: 1,
-                  title: 'Some stuff',
-                  previewText: 'Makin some stuff',
-                  thumb: 'post1.jpg'
-                },
-                {
-                  id: 2,
-                  title: 'Some other stuff',
-                  previewText: 'Makin more stuff',
-                  thumb: 'post2.jpg'
-                }
-              ]
-            )
-            resolve()
-          }, 1000)
-        })
+        return axios.get(FIREBASE_POSTS_URL)
+          .then((r) => {
+            const postsArray = []
+            for (const key in r.data) {
+              postsArray.push({ ...r.data[key], id: key })
+            }
+            console.log(postsArray)
+            vuexContext.commit('setPosts', postsArray)
+          })
+          .catch(e => context.error(e))
       },
       setPosts (vuexContext, posts) {
         vuexContext.commit('setPosts', posts)

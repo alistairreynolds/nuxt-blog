@@ -9,12 +9,12 @@
 <script>
 
 import axios from 'axios'
-
+import { FIREBASE_POSTS_URL } from '@/constants/urls'
 export default {
   name: 'NewPost',
   methods: {
     onSubmitted (postData) {
-      axios.post('https://nuxtlearning-7c8ea-default-rtdb.europe-west1.firebasedatabase.app/posts.json', postData)
+      axios.post(FIREBASE_POSTS_URL, postData)
         .then((response) => {
           console.log(response)
         })
