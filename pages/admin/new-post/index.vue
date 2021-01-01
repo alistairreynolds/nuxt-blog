@@ -1,14 +1,28 @@
 <template>
   <div class="admin-new-post-page">
     <section class="new-post-form">
-      <AdminPostForm />
+      <AdminPostForm @submit="onSubmitted" />
     </section>
   </div>
 </template>
 
 <script>
+
+import axios from 'axios'
+
 export default {
-  name: 'NewPost'
+  name: 'NewPost',
+  methods: {
+    onSubmitted (postData) {
+      axios.post('https://nuxtlearning-7c8ea-default-rtdb.europe-west1.firebasedatabase.app/posts.json', postData)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  }
 }
 </script>
 

@@ -6,7 +6,7 @@
     <AppControlInput v-model="editedPost.title">
       Title
     </AppControlInput>
-    <AppControlInput v-model="editedPost.thumbnailLink">
+    <AppControlInput v-model="editedPost.thumb">
       Thumbnail Link
     </AppControlInput>
     <AppControlInput
@@ -43,7 +43,7 @@ export default {
       editedPost: this.post ? { ...this.post } : {
         title: '',
         author: '',
-        thumbnailLink: '',
+        thumb: '',
         content: ''
       }
     }
@@ -53,7 +53,13 @@ export default {
       this.$router.push('/admin')
     },
     onSave () {
-      console.log(this.editedPost)
+      if (!this.editedPost.thumb) {
+        this.editedPost.thumb = 'https://miro.medium.com/max/2400/0*ScZSC40m756hGB4z'
+      }
+      if (!this.editedPost.author) {
+        this.editedPost.author = 'Alistair'
+      }
+      this.$emit('submit', this.editedPost)
     }
   }
 }
