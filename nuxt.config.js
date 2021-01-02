@@ -1,7 +1,8 @@
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    title: 'blog',
+    title: 'Alistair\'s blog',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -34,6 +35,12 @@ export default {
     '@nuxtjs/tailwindcss'
   ],
 
+  loadingIndicator: {
+    name: 'circle',
+    color: '#3B8070',
+    background: 'white'
+  },
+
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
     // https://go.nuxtjs.dev/axios
@@ -45,5 +52,12 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+  },
+
+  env: {
+    appName: "Alistair's blog"
+  },
+  transition: {
+    name: 'fade'
   }
 }

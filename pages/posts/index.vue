@@ -11,6 +11,9 @@ export default {
     loadedPosts () {
       return this.$store.getters.loadedPosts
     }
+  },
+  head () {
+    return { title: 'Posts - ' + process.env.appName }
   }
 }
 </script>
