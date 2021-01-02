@@ -1,7 +1,7 @@
 import Vuex from 'vuex'
 import axios from 'axios'
 import { FIREBASE_POST_URL, FIREBASE_POSTS_URL } from '@/constants/urls'
-import Swal from 'sweetalert2'
+import ErrorHandler from '~/plugins/ErrorHandler'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -48,13 +48,7 @@ const createStore = () => {
             // by the server
             vueContext.commit('addPost', { ...postData, id: response.data.name })
           })
-          .catch((error) => {
-            Swal.fire({
-              text: error,
-              toast: true,
-              position: 'bottom-end'
-            })
-          })
+          .catch(error => ErrorHandler(error))
       },
 
       editPost (vueContext, postData) {
@@ -63,13 +57,7 @@ const createStore = () => {
           .then((r) => {
             vueContext.commit('editPost', postData)
           })
-          .catch((error) => {
-            Swal.fire({
-              text: error,
-              toast: true,
-              position: 'bottom-end'
-            })
-          })
+          .catch(error => ErrorHandler(error))
       }
     },
 
