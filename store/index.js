@@ -4,7 +4,8 @@ import ErrorHandler from '~/modules/ErrorHandler'
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      loadedPosts: []
+      loadedPosts: [],
+      token: null
     },
 
     mutations: {
@@ -18,10 +19,29 @@ const createStore = () => {
       editPost (state, editedPost) {
         const index = state.loadedPosts.findIndex(post => editedPost.id === post.id)
         state.loadedPosts[index] = editedPost
+      },
+      setToken (state, token) {
+        state.token = token
       }
     },
 
     actions: {
+
+      authUser (vuexContext, authData) {
+        const endpoint = authData.isLogin ? 'signInWithPassword' : 'signUp'
+
+        return this.$axios
+          .$post(`https://identitytoolkit.googleapis.com/v1/accounts:${endpoint}?key=${process.env.firebaseApiKey}`, {
+            email: authData.email,
+            password: authData.password,
+            returnSecureToken: true
+          }).then((r) => {
+            vuexContext.commit('setToken', r.idToken)
+          }).catch((e) => {
+            console.log(e)
+          })
+      },
+
       nuxtServerInit (vuexContext, context) {
         return context.app.$axios
           .$get('posts.json')

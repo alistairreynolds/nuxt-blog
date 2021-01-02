@@ -38,16 +38,15 @@ export default {
   },
   methods: {
     onSubmit (name, value, prompt) {
-      this.$axios
-        .post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.firebaseApiKey}`, {
-          email: this.email,
-          password: this.password,
-          returnSecureToken: true
-        }).then((r) => {
-          console.log(r)
-        }).catch((e) => {
-          console.log(e)
-        })
+      this.$store.dispatch('authUser', {
+        isLogin: this.isLogin,
+        email: this.email,
+        password: this.password
+      }).then((r) => {
+        this.$router.push('/admin')
+      }).catch((e) => {
+        console.log(e)
+      })
     }
   }
 }
