@@ -1,7 +1,6 @@
 import Vuex from 'vuex'
-import axios from 'axios'
 import { FIREBASE_POST_URL, FIREBASE_POSTS_URL } from '@/constants/urls'
-import ErrorHandler from '~/plugins/ErrorHandler'
+// import ErrorHandler from '~/plugins/ErrorHandler'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -25,7 +24,7 @@ const createStore = () => {
 
     actions: {
       nuxtServerInit (vuexContext, context) {
-        return axios.get(FIREBASE_POSTS_URL)
+        return context.app.$axios.get(FIREBASE_POSTS_URL)
           .then((r) => {
             const postsArray = []
             for (const key in r.data) {
@@ -33,7 +32,7 @@ const createStore = () => {
             }
             vuexContext.commit('setPosts', postsArray)
           })
-          .catch(e => context.error(e))
+          // .catch(e => context.error(e))
       },
 
       setPosts (vuexContext, posts) {
@@ -41,23 +40,23 @@ const createStore = () => {
       },
 
       addPost (vueContext, postData) {
-        return axios
+        return this.$axios
           .post(FIREBASE_POSTS_URL, postData)
           .then((response) => {
             // Commit it to the addPost mutator so it will be added to the store, along with the "name" returned
             // by the server
             vueContext.commit('addPost', { ...postData, id: response.data.name })
           })
-          .catch(error => ErrorHandler(error))
+          // .catch(error => ErrorHandler(error))
       },
 
       editPost (vueContext, postData) {
-        return axios
+        return this.$axios
           .put(FIREBASE_POST_URL.replace('%s', postData.id), postData)
           .then((r) => {
             vueContext.commit('editPost', postData)
           })
-          .catch(error => ErrorHandler(error))
+          // .catch(error => ErrorHandler(error))
       }
     },
 

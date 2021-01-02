@@ -38,8 +38,6 @@
 
 <script>
 
-import moment from 'moment'
-
 export default {
   name: 'AdminPostForm',
   props: {
@@ -70,7 +68,7 @@ export default {
       if (!this.editedPost.author) {
         this.editedPost.author = 'Alistair'
       }
-      this.editedPost.updatedDate = moment()
+      this.editedPost.updatedDate = new Date()
       this.$emit('submit', this.editedPost)
     }
   }

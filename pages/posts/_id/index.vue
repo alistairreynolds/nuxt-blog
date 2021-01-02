@@ -9,7 +9,7 @@
           Written By {{ loadedPost.author }}
         </div>
         <div class="post-detail">
-          {{ loadedPost.updatedDate }}
+          {{ loadedPost.updatedDate | date }}
         </div>
       </div>
       <p class="post-content">
@@ -25,27 +25,13 @@
 
 <script>
 
-// import axios from 'axios'
-// import { FIREBASE_POST_URL } from '@/constants/urls'
-// import moment from 'moment'
-
-import axios from 'axios'
-import moment from 'moment'
 import { FIREBASE_POST_URL } from '~/constants'
 
 export default {
   name: 'Post',
-  // computed: {
-  //   loadedPost () {
-  //     return this.$store.getters.post(this.$route.params.id)
-  //   }
-  // }
   asyncData (context) {
-    return axios.get(FIREBASE_POST_URL.replace('%s', context.params.id))
+    return context.$axios.get(FIREBASE_POST_URL.replace('%s', context.params.id))
       .then((r) => {
-        let date = r.data.updatedDate
-        date = moment(date).format('dddd Do MMMM YYYY @ h:mm a')
-        r.data.updatedDate = date
         return {
           loadedPost: r.data
         }
