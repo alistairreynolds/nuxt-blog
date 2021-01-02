@@ -10,6 +10,7 @@
 
 export default {
   name: 'NewPost',
+  layout: 'admin',
   methods: {
     onSubmitted (postData) {
       this.$store.dispatch('addPost', postData)

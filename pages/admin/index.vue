@@ -15,6 +15,7 @@
 <script>
 export default {
   name: 'Admin',
+  layout: 'admin',
   computed: {
     loadedPosts () {
       return this.$store.getters.loadedPosts

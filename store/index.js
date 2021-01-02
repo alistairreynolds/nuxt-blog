@@ -86,6 +86,9 @@ const createStore = () => {
       },
       post: state => (id) => {
         return state.loadedPosts.filter(post => post.id === id)
+      },
+      isAuthenticated (state) {
+        return state.token != null
       }
     }
   })

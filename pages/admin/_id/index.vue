@@ -10,6 +10,7 @@
 
 export default {
   name: 'EditPost',
+  layout: 'admin',
   asyncData (context) {
     return context.$axios
       .$get(`posts/${context.params.id}.json`)
