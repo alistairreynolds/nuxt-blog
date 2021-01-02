@@ -61,7 +61,7 @@ const createStore = () => {
 
       addPost (vueContext, postData) {
         return this.$axios
-          .$post('posts.json', postData)
+          .$post(`posts.json?auth=${vueContext.state.token}`, postData)
           .then((response) => {
             // Commit it to the addPost mutator so it will be added to the store, along with the "name" returned
             // by the server
@@ -72,7 +72,7 @@ const createStore = () => {
 
       editPost (vueContext, postData) {
         return this.$axios
-          .$put(`posts/${postData.id}.json`, postData)
+          .$put(`posts/${postData.id}.json?auth=${vueContext.state.token}`, postData)
           .then((r) => {
             vueContext.commit('editPost', postData)
           })
