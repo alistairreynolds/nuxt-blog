@@ -1,7 +1,8 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="post-title">
+      <div class="hero" />
+      <h1 class="post-title" :style="{backgroundImage:`url('${loadedPost.thumb}')`}">
         {{ loadedPost.title }}
       </h1>
       <div class="post-details">
@@ -54,7 +55,8 @@ export default {
     }
 
     .post-title {
-      margin: 0;
+      background-size: cover;
+      background-blend-mode: color;
     }
 
     .post-details {

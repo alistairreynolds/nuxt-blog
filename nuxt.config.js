@@ -59,7 +59,8 @@ export default {
   },
 
   env: {
-    appName: "Alistair's blog"
+    appName: "Alistair's blog",
+    firebaseApiKey: 'AIzaSyCe4q5pOM6F4KroS1Bu2JUydy9HD5ti7d4'
   },
   transition: {
     name: 'fade'
