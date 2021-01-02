@@ -45,21 +45,19 @@ const createStore = () => {
             // Set the token to the store and initialise the logout timer
             vuexContext.commit('setToken', r.idToken)
             vuexContext.dispatch('setLogoutTimer', +r.expiresIn * 1000)
-            // Set the token as a cookie so the server can read it
+            // Set the token as a cookie so the server and client can read it
             Cookies.set('token', r.idToken)
             Cookies.set('tokenExpiry', expiryTime)
-            // And a cookie locally so the client can read it
-            localStorage.setItem('token', r.idToken)
-            localStorage.setItem('tokenExpiry', expiryTime)
           }).catch((e) => {
             console.log(e)
           })
       },
 
       initAuth (vuexContext, request) {
-        // console.log(request)
         let token, tokenExpiry
         if (request) {
+          // If the request is available, we're fetching on the server, so read the cookie via the request
+          // as it can't be fetched with regular JS cookie
           if (!request.headers.cookie) {
             return
           }
@@ -87,8 +85,8 @@ const createStore = () => {
           // Get the value of the cookie expiry
           tokenExpiry = tokenExpiry.split('=')[1]
         } else {
-          token = localStorage.getItem('token')
-          tokenExpiry = localStorage.getItem('tokenExpiry')
+          token = Cookies.get('token')
+          tokenExpiry = Cookies.get('tokenExpiry')
         }
 
         if (!token || new Date().getTime() > +tokenExpiry) {
