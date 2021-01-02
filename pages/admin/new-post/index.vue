@@ -8,22 +8,14 @@
 
 <script>
 
-import axios from 'axios'
-import Swal from 'sweetalert2'
-import { FIREBASE_POSTS_URL } from '@/constants/urls'
 export default {
   name: 'NewPost',
   methods: {
     onSubmitted (postData) {
-      axios.post(FIREBASE_POSTS_URL, postData)
-        .then(response => this.$router.push('/admin'))
-        .catch((error) => {
-          Swal.fire({
-            text: error,
-            toast: true,
-            position: 'bottom-end'
-          })
-        })
+      this.$store.dispatch('addPost', postData)
+        .then(
+          this.$router.push('/admin')
+        )
     }
   }
 }

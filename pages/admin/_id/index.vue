@@ -9,7 +9,6 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
-import Swal from 'sweetalert2'
 import { FIREBASE_POST_URL } from '~/constants'
 
 export default {
@@ -27,15 +26,11 @@ export default {
       }).catch(e => context.error(e))
   },
   methods: {
-    onSubmitted (data) {
-      axios.put(FIREBASE_POST_URL.replace('%s', this.$route.params.id), data)
-        .then(r => this.$router.push('/admin'))
-        .catch((error) => {
-          Swal.fire({
-            text: error,
-            toast: true,
-            position: 'bottom-end'
-          })
+    onSubmitted (postData) {
+      postData.id = this.$route.params.id
+      this.$store.dispatch('editPost', postData)
+        .then((r) => {
+          this.$router.push('/admin')
         })
     }
   }
