@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import Cookies from 'js-cookie'
 import ErrorHandler from '~/modules/ErrorHandler'
 
 const createStore = () => {
@@ -33,17 +34,69 @@ const createStore = () => {
       authUser (vuexContext, authData) {
         const endpoint = authData.isLogin ? 'signInWithPassword' : 'signUp'
 
+        // Make a login request to firebase
         return this.$axios
           .$post(`https://identitytoolkit.googleapis.com/v1/accounts:${endpoint}?key=${process.env.firebaseApiKey}`, {
             email: authData.email,
             password: authData.password,
             returnSecureToken: true
           }).then((r) => {
+            const expiryTime = (new Date().getTime() + r.expiresIn * 1000).toString()
+            // Set the token to the store and initialise the logout timer
             vuexContext.commit('setToken', r.idToken)
             vuexContext.dispatch('setLogoutTimer', +r.expiresIn * 1000)
+            // Set the token as a cookie so the server can read it
+            Cookies.set('token', r.idToken)
+            Cookies.set('tokenExpiry', expiryTime)
+            // And a cookie locally so the client can read it
+            localStorage.setItem('token', r.idToken)
+            localStorage.setItem('tokenExpiry', expiryTime)
           }).catch((e) => {
             console.log(e)
           })
+      },
+
+      initAuth (vuexContext, request) {
+        // console.log(request)
+        let token, tokenExpiry
+        if (request) {
+          if (!request.headers.cookie) {
+            return
+          }
+
+          // Need to use the request cookie
+          token = request.headers.cookie
+            .split(';')
+            .find(c => c.trim().startsWith('token='))
+
+          if (!token) {
+            return
+          }
+
+          // Get the value of the token cookie
+          token = token.split('=')[1]
+
+          tokenExpiry = request.headers.cookie
+            .split(';')
+            .find(c => c.trim().startsWith('tokenExpiry='))
+
+          if (!tokenExpiry) {
+            return
+          }
+
+          // Get the value of the cookie expiry
+          tokenExpiry = tokenExpiry.split('=')[1]
+        } else {
+          token = localStorage.getItem('token')
+          tokenExpiry = localStorage.getItem('tokenExpiry')
+        }
+
+        if (!token || new Date().getTime() > +tokenExpiry) {
+          return
+        }
+
+        vuexContext.dispatch('setLogoutTimer', tokenExpiry - new Date().getTime())
+        vuexContext.commit('setToken', token)
       },
 
       setLogoutTimer (vuexContext, duration) {

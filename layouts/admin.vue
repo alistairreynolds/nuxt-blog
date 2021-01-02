@@ -14,7 +14,7 @@
 <script>
 
 export default {
-  middleware: 'auth',
+  middleware: ['checkAuth', 'auth'],
   data () {
     return {
       displaySideNav: false

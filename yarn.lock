@@ -5102,6 +5102,11 @@ jiti@^0.1.16, jiti@^0.1.17:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-0.1.19.tgz#455f93e0c92f26c9cea0af48def3eb4f567bbbe3"
   integrity sha512-ElDW0w/0ATX6IQwReNYMVrYkHu8PqIOO5t3lluceP/saq4SYz4D3uSMpU8pbn/RX3H6VYVPc0PnKn2WfQ5kiwg==
 
+js-cookie@^3.0.0:
+  version "3.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.0-rc.1.tgz#20f31aa587434855a2b8394542ba38d9f84a3889"
+  integrity sha512-UG5OeBDTwBLXm+d7djWjQ+AzZXeRHbQ04Wk1uWYG1BdsmTZa0ET4E3DF5yRF+4U0yv+2N80Bg22DcjVcWidMqA==
+
 js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
