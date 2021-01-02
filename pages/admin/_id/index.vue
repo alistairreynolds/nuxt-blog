@@ -1,7 +1,7 @@
 <template>
   <div class="admin-post-page">
     <section class="update-form">
-      <AdminPostForm :post="loadedPost" />
+      <AdminPostForm :post="loadedPost" @submit="onSubmitted" />
     </section>
   </div>
 </template>
@@ -9,6 +9,7 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import Swal from 'sweetalert2'
 import { FIREBASE_POST_URL } from '~/constants'
 
 export default {
@@ -24,6 +25,19 @@ export default {
           loadedPost: r.data
         }
       }).catch(e => context.error(e))
+  },
+  methods: {
+    onSubmitted (data) {
+      axios.put(FIREBASE_POST_URL.replace('%s', this.$route.params.id), data)
+        .then(r => this.$router.push('/admin'))
+        .catch((error) => {
+          Swal.fire({
+            text: error,
+            toast: true,
+            position: 'bottom-end'
+          })
+        })
+    }
   }
 }
 </script>

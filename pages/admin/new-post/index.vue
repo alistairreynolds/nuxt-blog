@@ -9,17 +9,20 @@
 <script>
 
 import axios from 'axios'
+import Swal from 'sweetalert2'
 import { FIREBASE_POSTS_URL } from '@/constants/urls'
 export default {
   name: 'NewPost',
   methods: {
     onSubmitted (postData) {
       axios.post(FIREBASE_POSTS_URL, postData)
-        .then((response) => {
-          console.log(response)
-        })
+        .then(response => this.$router.push('/admin'))
         .catch((error) => {
-          console.log(error)
+          Swal.fire({
+            text: error,
+            toast: true,
+            position: 'bottom-end'
+          })
         })
     }
   }
