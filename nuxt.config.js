@@ -50,9 +50,9 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  // axios: {
-  //   baseURL: 'https://nuxtlearning-7c8ea-default-rtdb.europe-west1.firebasedatabase.app/'
-  // },
+  axios: {
+    baseURL: 'https://nuxtlearning-7c8ea-default-rtdb.europe-west1.firebasedatabase.app/'
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

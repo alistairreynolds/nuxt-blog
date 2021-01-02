@@ -7,23 +7,23 @@
 </template>
 
 <script>
-import { FIREBASE_POST_URL } from '~/constants'
 
 export default {
   name: 'EditPost',
   asyncData (context) {
-    return context.$axios.get(FIREBASE_POST_URL.replace('%s', context.params.id))
+    return context.$axios
+      .$get(`posts/${context.params.id}.json`)
       .then((r) => {
-        r.data.updatedDate = new Date()
-
         return {
-          loadedPost: r.data
+          loadedPost: r
         }
-      }).catch(e => context.error(e))
+      })
+      .catch(e => context.error(e))
   },
   methods: {
     onSubmitted (postData) {
-      postData.id = this.route.params.id
+      postData.id = this.$route.params.id
+      postData.updatedDate = new Date()
       this.$store.dispatch('editPost', postData)
         .then((r) => {
           this.$router.push('/admin')

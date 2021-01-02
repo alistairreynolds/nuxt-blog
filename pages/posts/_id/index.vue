@@ -25,15 +25,13 @@
 
 <script>
 
-import { FIREBASE_POST_URL } from '~/constants'
-
 export default {
   name: 'Post',
   asyncData (context) {
-    return context.$axios.get(FIREBASE_POST_URL.replace('%s', context.params.id))
+    return context.$axios.$get(`posts/${context.params.id}.json`)
       .then((r) => {
         return {
-          loadedPost: r.data
+          loadedPost: r
         }
       }).catch(e => context.error(e))
   }
