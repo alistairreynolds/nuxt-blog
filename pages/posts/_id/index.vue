@@ -6,10 +6,10 @@
       </h1>
       <div class="post-details">
         <div class="post-detail">
-          {{ loadedPost.updatedDate }}
+          Written By {{ loadedPost.author }}
         </div>
         <div class="post-detail">
-          Written By: {{ loadedPost.author }}
+          {{ loadedPost.updatedDate }}
         </div>
       </div>
       <p class="post-content">
@@ -27,12 +27,17 @@
 
 import axios from 'axios'
 import { FIREBASE_POST_URL } from '@/constants/urls'
+import moment from 'moment'
 
 export default {
   name: 'Post',
   asyncData (context) {
     return axios.get(FIREBASE_POST_URL.replace('%s', context.params.id))
       .then((r) => {
+        let date = r.data.updatedDate
+        date = moment(date).format('dddd Do MMMM YYYY @ h:mm a')
+        r.data.updatedDate = date
+
         return {
           loadedPost: r.data
         }
